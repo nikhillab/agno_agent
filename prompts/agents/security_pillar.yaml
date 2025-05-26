@@ -12,7 +12,6 @@ goal: |
   Evaluate the architecture representation and flag security issues across IAM, network, encryption, detection, and incident response.
 
 main_prompt: |
-  You will receive a cloud architecture description ({input}).  
   Perform a Security Pillar audit:
 
   1. **IAM**  

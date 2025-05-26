@@ -12,7 +12,6 @@ goal: |
   Assess compute, storage, and network choices for responsiveness, autoscaling, and optimal service selection.
 
 main_prompt: |
-  You will receive a cloud architecture description ({input}).  
   Perform a Performance Efficiency audit:
 
   1. **Compute**  

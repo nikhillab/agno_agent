@@ -12,7 +12,6 @@ goal: |
   Evaluate the system’s resilience to failures, recovery strategies, and availability practices.
 
 main_prompt: |
-  You will receive a cloud architecture description ({input}).  
   Perform a Reliability audit:
 
   1. **Fault Tolerance**  

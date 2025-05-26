@@ -1,12 +1,16 @@
 import time
 import streamlit as st
 
+from agents import AgentManager
+import agent_util
+
+ 
 
 # Dummy function to simulate agent processing (replace with actual logic)
-def run_agent(agent_name):
-    with st.spinner(f"🔍 Running {agent_name} analysis... Please wait!"):
-        
-        return f"Here are the detailed results for **{agent_name}**."
+def process_agent(agent_select: str) -> str:
+    with st.spinner(f"🔍 Running {agent_select} analysis... Please wait!"):
+        agent_name=agent_util.get_agent_from_select_option(agent_select)
+        return st.session_state.agent_manager.run_agent(agent_name=agent_name,local_image_path='aws.jpg')
 
 # Custom CSS for styling
 st.markdown("""
@@ -58,6 +62,10 @@ if "uploaded_image" not in st.session_state:
     st.session_state.uploaded_image = None
 if "input_json" not in st.session_state:
     st.session_state.input_json = ""
+
+if "agent_manager" not in st.session_state:
+    st.session_state.agent_manager = AgentManager()
+    st.session_state.agent_manager.load_agents()
 
 
 # Reset function
@@ -144,9 +152,10 @@ if st.session_state.run_evaluation:
         result_tabs = st.tabs(st.session_state.selected_agents)
         for tab, agent in zip(result_tabs, st.session_state.selected_agents):
             with tab:
-                result_text = run_agent(agent)
+                result_text = process_agent(agent)
                 st.markdown(f"### 🔍 {agent} Agent Result ")
-                st.markdown(f"✅ Evaluation completed successfully for **{agent}**.\n\n")
+                st.markdown(f"✅ Evaluation completed successfully for **{agent}**.\n")
+                st.markdown(result_text)
                 
                 if st.session_state.uploaded_image:
                     st.image(st.session_state.uploaded_image, caption="Your Uploaded Architecture Diagram")

@@ -24,7 +24,7 @@ def resize_image_for_display(image_file: str) -> str:
     return final_path
 
 
-def get_agent_to_select_map() -> dict[str, str]:
+def get_agent_from_select_option(select_option: str) -> str:
     map={
         "Architectural Components":"component_extractor_agent",
         "Connectivity and Integration":"connection_extractor_agent",
@@ -35,4 +35,4 @@ def get_agent_to_select_map() -> dict[str, str]:
         "Reliability and Fault Tolerance":"reliability_agent",
         "Operational Efficiency and Manageability":"operational_excellence_agent",
     }
-    return map
+    return map[select_option]

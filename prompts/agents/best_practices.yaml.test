@@ -13,9 +13,6 @@ goal: |
   Review the given architecture representation and verify adherence to core best-practice principles across reliability, scalability, maintainability, and operational excellence.  
 
 main_prompt: |
-  You will receive a cloud architecture description (diagram JSON, component & connection tables, or free-text).  
-  Your task is to audit the design for best practices:
-
   1. Read the input thoroughly and identify all components and their relationships.
   2. For each of these key best-practice categories, perform the checks listed:
      - **Reliability**: multi-AZ/failover, health checks, retries
@@ -33,7 +30,7 @@ main_prompt: |
   ```markdown
   | Category              | Check                                    | Status | Notes                                   | Remediation                         |
   |-----------------------|------------------------------------------|--------|-----------------------------------------|-------------------------------------|
-  | Reliability           | Multi-AZ deployment                      | FAIL   | Single AZ for database                 | Deploy DB replicas in multiple AZs  |
+  | Reliability           | Multi-AZ deployment                      | FAIL   | Single AZ for database                  | Deploy DB replicas in multiple AZs  |
   | Scalability           | Autoscaling enabled                      | PASS   | Auto Scaling Group defined for web tier |                                     |
-  | Maintainability       | Infrastructure as code                   | PASS   | Templates in GitHub CI pipeline        |                                     |
+  | Maintainability       | Infrastructure as code                   | PASS   | Templates in GitHub CI pipeline         |                                     |
   | Operational Excellence| Monitoring & alerting for key metrics    | FAIL   | No CloudWatch alarms for CPU spikes     | Create alarms for CPU/Memory usage  |

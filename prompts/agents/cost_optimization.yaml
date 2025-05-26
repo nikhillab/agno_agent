@@ -12,7 +12,6 @@ goal: |
   Analyze the architecture representation for waste, over-provisioning, and unutilized resources. Recommend cost-saving measures.
 
 main_prompt: |
-  You will receive a cloud architecture description ({input}).  
   Perform a Cost Optimization audit:
 
   1. **Resource Utilization**  

@@ -12,7 +12,6 @@ goal: |
   Assess monitoring, deployment processes, runbooks, and feedback loops.
 
 main_prompt: |
-  You will receive a cloud architecture description ({input}).  
   Perform an Operational Excellence audit:
 
   1. **Observability**  

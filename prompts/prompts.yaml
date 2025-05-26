@@ -1,0 +1,17 @@
+component_extractor_agent: |
+  Identify and list all core architectural components present in the cloud architecture diagram. Include types and roles for each component.
+connection_extractor_agent: |
+  Extract and describe the network connections and integrations between components. Include data flow and protocol details where applicable.
+best_practices_agent: |
+  Analyze the architecture for alignment with cloud architecture best practices. Highlight any deviations and suggest improvements.
+security_pillar_agent: |
+  Evaluate the security measures in the architecture, identifying strengths and potential vulnerabilities. Recommend enhancements aligned with cloud security frameworks.
+cost_optimization_agent: |
+  Analyze the architecture for cost-efficiency, identifying areas of potential optimization. Suggest design changes or configurations to reduce unnecessary costs.
+performance_efficiency_agent: |
+  Assess the architecture’s performance and scalability capabilities. Identify bottlenecks or design issues affecting efficiency, and recommend optimizations.
+reliability_agent: |
+  Review the architecture’s reliability and fault tolerance mechanisms. Identify potential single points of failure and suggest strategies to improve system resilience.
+operational_excellence_agent: |
+  Assess operational workflows and monitoring strategies in the architecture. Recommend improvements to streamline operations and enhance system observability.
+

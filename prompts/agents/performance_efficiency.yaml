@@ -5,7 +5,7 @@ name: Performance Efficiency Auditor
 system_message_role: |
   You are a Cloud Performance Engineer.
 
-system_message: |
+instructions: |
   Your sole task is to evaluate the design for performance and scalability. Provide structured findings only.
 
 goal: |

@@ -1,16 +1,16 @@
-import time
 import streamlit as st
 
 from agents import AgentManager
 import agent_util
 
+
  
 
-# Dummy function to simulate agent processing (replace with actual logic)
-def process_agent(agent_select: str) -> str:
+def process_agent(agent_select: str, provider: str,image_path: str) -> str:
     with st.spinner(f"🔍 Running {agent_select} analysis... Please wait!"):
         agent_name=agent_util.get_agent_from_select_option(agent_select)
-        return st.session_state.agent_manager.run_agent(agent_name=agent_name,local_image_path='aws.jpg')
+        return st.session_state.agent_manager.run_agent(agent_name=agent_name,local_image_path=image_path)
+        # return "demo test"
 
 # Custom CSS for styling
 st.markdown("""
@@ -52,14 +52,19 @@ st.markdown("""
 # Initialize session state
 if "provider" not in st.session_state:
     st.session_state.provider = "AWS"
+
 if "custom_provider" not in st.session_state:
     st.session_state.custom_provider = ""
+
 if "selected_agents" not in st.session_state:
     st.session_state.selected_agents = []
+
 if "run_evaluation" not in st.session_state:
     st.session_state.run_evaluation = False
+
 if "uploaded_image" not in st.session_state:
     st.session_state.uploaded_image = None
+
 if "input_json" not in st.session_state:
     st.session_state.input_json = ""
 
@@ -67,13 +72,22 @@ if "agent_manager" not in st.session_state:
     st.session_state.agent_manager = AgentManager()
     st.session_state.agent_manager.load_agents()
 
+def run_evaluation():
+    print("run_evaluation")
+    st.session_state.run_evaluation = True
+
+def reset_run_evaluation():
+    print("reset_run_evaluation")
+    st.session_state.run_evaluation = False
+    st.session_state.selected_agents = []
 
 # Reset function
-def reset():
+def reset_state():
+    print("reset_state")
+    st.session_state.run_evaluation = False
+    st.session_state.selected_agents = []
     st.session_state.provider = "AWS"
     st.session_state.custom_provider = ""
-    st.session_state.selected_agents = []
-    st.session_state.run_evaluation = False
     st.session_state.uploaded_image = None
     st.session_state.input_json = ""
 
@@ -92,7 +106,8 @@ st.markdown("""
 st.session_state.provider = st.selectbox(
     "🌐 Choose Your Cloud Provider",
     ["AWS", "Azure", "GCP", "Mixed", "Others"],
-    index=["AWS", "Azure", "GCP", "Mixed", "Others"].index(st.session_state.provider)
+    index=["AWS", "Azure", "GCP", "Mixed", "Others"].index(st.session_state.provider),
+    on_change = reset_run_evaluation
 )
 
 if st.session_state.provider in ["Mixed", "Others"]:
@@ -114,7 +129,8 @@ st.session_state.selected_agents = st.multiselect(
         "Reliability and Fault Tolerance",
         "Operational Efficiency and Manageability"
     ],
-    default=st.session_state.selected_agents
+    default=st.session_state.selected_agents,
+    on_change = reset_run_evaluation
 )
 
 st.markdown("---")
@@ -132,40 +148,42 @@ st.markdown("---")
 # Buttons
 col1, col2 = st.columns([1, 1])
 with col1:
-    if st.button("🚀 Launch Architecture Review"):
-        st.session_state.run_evaluation = True
+    st.button("🚀 Launch Architecture Review",on_click=run_evaluation)
+        
 with col2:
-    if st.button("🔄 Reset All Fields"):
-        reset()
+    st.button("🔄 Reset All Fields",on_click=reset_state)
+        
 
 
 
 # Display Results
 if st.session_state.run_evaluation:
-    st.info(body="""
-                    🎉 **Architecture Review Completed!**  
-                    Here are the detailed insights for each selected category. Explore the tabs below!
-                """)
-    
+    if st.session_state.input_json:
+        st.markdown("**Input JSON:**")
+        try:
+            eval(st.session_state.input_json)
+        except:
+            st.warning("⚠️ Oops! The provided JSON is not valid. Please check and try again.")
+
+    if st.session_state.uploaded_image:
+        resized_image = agent_util.resize_image_for_display(st.session_state.uploaded_image)
+        st.image(resized_image, caption="Your Uploaded Architecture Diagram", use_container_width=False, width=agent_util.MAX_IMAGE_WIDTH)
+
     if st.session_state.selected_agents:
+        st.info(body="""
+                    🎉 Explore the tabs below! To get detailed insights for each selected category.  
+            """)
+        
+        temp_path = agent_util.save_uploaded_file(st.session_state.uploaded_image)
+        print("Temp Path:",temp_path)
 
         result_tabs = st.tabs(st.session_state.selected_agents)
         for tab, agent in zip(result_tabs, st.session_state.selected_agents):
             with tab:
-                result_text = process_agent(agent)
+                result_text = process_agent(agent,st.session_state.provider,temp_path)
                 st.markdown(f"### 🔍 {agent} Agent Result ")
                 st.markdown(f"✅ Evaluation completed successfully for **{agent}**.\n")
                 st.markdown(result_text)
-                
-                if st.session_state.uploaded_image:
-                    st.image(st.session_state.uploaded_image, caption="Your Uploaded Architecture Diagram")
-                
-                if st.session_state.input_json:
-                    st.markdown("**Input JSON:**")
-                    try:
-                        st.json(eval(st.session_state.input_json))
-                    except:
-                        st.warning("⚠️ Oops! The provided JSON is not valid. Please check and try again.")
     else:
         st.warning("⚠️ Please select at least one review category to begin evaluation.")
 else:

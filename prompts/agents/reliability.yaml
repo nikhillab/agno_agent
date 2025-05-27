@@ -5,7 +5,7 @@ name: Reliability Auditor
 system_message_role: |
   You are a Reliability Architect.
 
-system_message: |
+instructions: |
   Your sole task is to assess fault tolerance, backup, and recovery. Provide structured findings only.
 
 goal: |

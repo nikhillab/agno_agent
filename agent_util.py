@@ -1,14 +1,13 @@
+from io import BytesIO
+from tempfile import NamedTemporaryFile
 from PIL import Image
 
 
 
 MAX_IMAGE_WIDTH = 500
-FOLDER = "output/"
 
-"""Resize image"""
-def resize_image_for_display(image_file: str) -> str:
-    final_path = FOLDER+image_file
-    
+def resize_image_for_display(image_file):
+    """Resize image for display only, returns bytes"""
     if isinstance(image_file, str):
         img = Image.open(image_file)
     else:
@@ -18,10 +17,16 @@ def resize_image_for_display(image_file: str) -> str:
     aspect_ratio = img.height / img.width
     new_height = int(MAX_IMAGE_WIDTH * aspect_ratio)
     img = img.resize((MAX_IMAGE_WIDTH, new_height), Image.Resampling.LANCZOS)
+    
+    buf = BytesIO()
+    img.save(buf, format="PNG")
+    return buf.getvalue()
 
-    img.save(final_path)
+def save_uploaded_file(uploaded_file):
+    with NamedTemporaryFile(dir='./input', suffix='.jpg', delete=False) as f:
+        f.write(uploaded_file.getbuffer())
+        return f.name
 
-    return final_path
 
 
 def get_agent_from_select_option(select_option: str) -> str:

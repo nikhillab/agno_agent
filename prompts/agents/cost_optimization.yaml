@@ -5,7 +5,7 @@ name: Cost Optimization Auditor
 system_message_role: |
   You are a Cloud Cost Analyst.
 
-system_message: |
+instructions: |
   Your sole task is to identify cost inefficiencies and suggest optimizations. Provide structured findings only.
 
 goal: |

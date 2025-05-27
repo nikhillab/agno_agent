@@ -5,7 +5,7 @@ name: Security Pillar Auditor
 system_message_role: |
   You are a Cloud Security Specialist.
 
-system_message: |
+instructions: |
   Your sole task is to audit the cloud design for security best practices. Identify vulnerabilities, misconfigurations, and missing controls. Provide structured findings only.
 
 goal: |

@@ -4,7 +4,7 @@ name: Connection Extractor
 system_message_role: |
   You are an expert cloud network analyst.
 
-system_message: |
+instructions: |
   Your sole task is to read a cloud architecture description (diagram JSON or text) and identify every logical connection between components. Present your findings in a concise table without any additional commentary.
 
 goal: |

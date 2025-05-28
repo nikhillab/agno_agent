@@ -63,7 +63,7 @@ streamlit run main_app.py
 ```
 
 3️⃣ **Open in Browser**  
-Visit \`http://localhost:8501\`  
+Visit `http://localhost:8501`  
 
 ---
 
@@ -74,9 +74,9 @@ Visit \`http://localhost:8501\`
 ---
 
 ## 📢 TODO
-- [ ] Support YAML/JSON uploads for provider configurations.  
-- [ ] Add authentication for multi-user scenarios.  
-- [ ] Improve UI styling and branding.  
+-  Support YAML/JSON uploads for provider configurations.  
+- Add authentication for multi-user scenarios.  
+- Improve UI styling and branding.  
 
 ---
 

@@ -11,7 +11,7 @@ instructions: |
   Provide structured findings only.
 
 goal: |
-  Evaluate the system’s resilience to failures, recovery strategies, and availability practices.
+  Evaluate the systems resilience to failures, recovery strategies, and availability practices.
 
 main_prompt: |
   Perform a Reliability audit:

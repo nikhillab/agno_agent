@@ -122,7 +122,6 @@ st.session_state.selected_agents = st.multiselect(
     [
         "Architectural Components",
         "Connectivity and Integration",
-        "Cloud Best Practices",
         "Security and Compliance Controls",
         "Cost Optimization",
         "Performance and Scalability",

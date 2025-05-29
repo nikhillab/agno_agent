@@ -33,7 +33,6 @@ def get_agent_from_select_option(select_option: str) -> str:
     map={
         "Architectural Components":"component_extractor_agent",
         "Connectivity and Integration":"connection_extractor_agent",
-        "Cloud Best Practices":"best_practices_agent",
         "Security and Compliance Controls":"security_pillar_agent",
         "Cost Optimization":"cost_optimization_agent",
         "Performance and Scalability":"performance_efficiency_agent",

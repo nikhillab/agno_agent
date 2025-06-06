@@ -2,6 +2,10 @@ import os
 from pathlib import Path
 import time
 from agno.models.ollama import Ollama
+from agno.models.google import Gemini
+from agno.tools.reasoning import ReasoningTools
+
+
 from agno.media import Image
 from agno.agent import Agent
 import yaml
@@ -30,7 +34,10 @@ class AgentManager:
                         markdown=True,
                         debug_mode=True,
                         show_tool_calls=True,
-                        goal=config.get("goal", "").strip()
+                        goal=config.get("goal", "").strip(),
+                        tools=[ReasoningTools(
+                                think=True
+                            )]
                     )
 
                     self.agents[agent.agent_id] = agent
@@ -43,13 +50,9 @@ class AgentManager:
             return f"Agent {agent_name} not found."
 
         image_path = Path(local_image_path)
-        final_response = ""
-
-        for response in agent.run(
+        final_response = agent.run(
             self.agent_prompts.get(agent_name),
             images=[Image(filepath=image_path)],
-            stream=True,
-        ):
-            final_response += response.content
+        )
 
-        return final_response
+        return final_response.content
